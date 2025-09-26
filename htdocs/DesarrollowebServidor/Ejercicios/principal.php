@@ -18,7 +18,7 @@
     <img src="Foto.jpg" alt="Foto_gato" height="240px" width="180px">
     <br>
     <!--Formulario-->
-    <form action="consulta.php" method="get"> 
+    <form action="consulta.php" method="get">
         <fieldset>
             <legend>Formulario usuarios</legend>
 
@@ -58,7 +58,9 @@
     <p>Ir a <a href="count.php">Count</a></p>
     <p>Ir a <a href="server.php">Server</a></p>
     <p>Ir a <a href="consulta.php">Consulta</a></p>
-     <p>Ir a <a href="registro.php">Registro</a></p>
+    <p>Ir a <a href="registro.php">Registro</a></p>
+    <p>Ir a <a href="excepcion_1.php">Excepción 1</a></p>
+     <p>Ir a <a href="excepcion_2.php">Excepción 2</a></p>
 
 </body>
 
