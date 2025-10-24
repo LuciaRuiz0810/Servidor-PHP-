@@ -8,9 +8,11 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
     $pass = $_POST["contraseña_usuario"];
     $user = $_POST["nombre_usuario"];
 
+
     try {
         //Hashea la contraseña introducida
         $hash = password_hash($pass, PASSWORD_DEFAULT);
+
         //consulta para insertar en la tabla el usuario y la contraseña hasheada
         $consulta = $conexion->prepare('INSERT INTO tabla_usuarios (usuario, password) VALUES (?, ?)');
         $consulta->execute([$user, $hash]);
@@ -25,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
 }
 
 ?>
-<!--HTML-->
+<!--Registro de usuarios HMTL-->
 <!DOCTYPE html>
 <html lang="en">
 

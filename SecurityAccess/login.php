@@ -1,61 +1,68 @@
 <?php
-$conexion = new PDO('mysql:host=localhost;dbname=discografia', 'root', '');
+$pdo = new PDO('mysql:host=localhost;dbname=discografia;charset=utf8', 'root', '');
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+//Si existe la cookie y el usuario aún no ha hecho el login
+if (isset($_COOKIE['user']) && !isset($_POST['login'])) {
+    
+    //Se obtiene el nombre del usuario
+    $usuario_cookie = htmlspecialchars($_COOKIE['user']);
+    //Saltará el formulario donde el usuario podrá decidir si iniciar sesión con ese usuario o no
+    echo "<form method='post'>
+            <p>¿Deseas iniciar sesión como <strong>$usuario_cookie</strong>?</p>
+            <button type='submit' name='login' value='si'>Sí</button>
+            <button type='submit' name='login' value='no'>No</button>
+        </form>";
 
-    //Recogemos los datos de los inputs con el "name" de cada uno
-    $pass = $_POST["contraseña_usuario"];
-    $user = $_POST["nombre_usuario"];
+    exit;  
+}
 
-    try {
-        //Consulta para extraer la contraseña del usuario indicado
-        $consulta = $conexion->prepare("SELECT password FROM tabla_usuarios WHERE usuario= ?");
-        $consulta->execute([$user]);
-        //Extraemos el resultado de la consulta
-        $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+//Si existe el login y la respuesta es "si", se iniciará sesión con el usuario guardado en la cookie
+if (isset($_POST['login']) && $_POST['login'] === 'si') {
+    echo "<p style='color:green;'>Acceso exitoso como " . htmlspecialchars($_COOKIE['user']) . "</p>";
+    exit;
+}
+
+//Si la respuesta es "no" se desactivará la cookie con ese usuario
+if (isset($_POST['login']) && $_POST['login'] === 'no') {
+    setcookie("user", "", time() - 60, "/");  
+    unset($_COOKIE['user']);
+}
 
 
-        //Si resultado contiene un valor y las contraseñas hasheadas coinciden informará
-        //password_verify($pass, $resultado['password']) hashea $pass, y $resultado['password'] es la que ya está hasheada en 
-        // la base de datos
-        if ($resultado && password_verify($pass, $resultado['password'])) {
-            echo '<p style= color:green> Login successful</p>';
+ //Si se envia el formulario y ambos campos contienen valores
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user'], $_POST['password'])) {
+    //Se obtienen los datos
+    $usuario = $_POST['user'];
+    $contraseña = $_POST['password'];
 
-            //Si algun dato es incorrecto, saltará la excepción
-        } else {
-            throw new Exception('Datos incorrectos!');
-        };
+    //Se recupera la contraseña hasheada del usuario correspondiente
+    $stmt = $pdo->prepare("SELECT password FROM tabla_usuarios WHERE usuario = ?");
+    $stmt->execute([$usuario]);
+    //Obtenemos el resultado
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    } catch (Exception $e) {
-        echo '<p style= color:red> ¡Error!: ' . $e->getMessage() . '</p>';
+    //Hasheamos la contraseña introducida y se compara con la obtenida en la consulta
+    if ($user && password_verify($contraseña, $user['password'])) {
+        //Si existe, se inicia sesión y se establece la cookie
+        echo "<p style='color:green;'>Bienvenido, $usuario</p>";
+        setcookie("user", $usuario, time() + 60, "/"); 
+    } else {
+        //Si es incorrecto se informa
+        echo "<p style='color:red;'>Datos incorrectos</p>";
     }
 }
 
 ?>
 
-<!--HTML-->
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-</head>
-
-<body>
-    <h3>Login</h3>
-    <form action="#" method="post">
-        <label for="user">Usuario:</label>
-        <input type="text" name="nombre_usuario">
-        <label for="contraseña">Contraseña:</label>
-        <input type="password" name="contraseña_usuario">
-        <br> <br>
-        <input type="submit" value="Enviar">
-    </form>
-    <br> <br>
-    <a href="RegistrarUsers.php">Ir a "Registrar Usuarios"</a>
-</body>
-
-</html>
+<!--Formulario de inicio de sesión original-->
+<form method="post">
+    <h2>Iniciar Sesión</h2>
+    <input name="user" placeholder="Usuario" required>
+    <br><br>
+    <input type="password" name="password" placeholder="Contraseña" required>
+    <br><br>
+    <button type="submit">Enviar</button>
+</form>
+<p>Ir a <a href='RegistrarUsers.php'>Registrar Usuarios</a></p>
