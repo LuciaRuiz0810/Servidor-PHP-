@@ -1,0 +1,265 @@
+* {
+	font-family: "Arial";
+	box-sizing: border-box;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+	overflow-x: hidden;
+	width: 100%;
+}
+
+header {
+	background-image: url("img/container_bg.png");
+	font-weight: bold;
+	text-align: center;
+	height: 80px;
+	border: solid 1px;
+	border-top-right-radius: 20px;
+	border-top-left-radius: 20px;
+	background-color: orange;
+	color: blue;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 30px;
+	text-shadow: 1px 1px 2px black, 0 0 1em orange, 0 0 0.2em orange;
+}
+
+header img {
+	width: 160px;
+	height: 60px;
+}
+
+nav {
+	background-image: url("img/container_bg.png");
+	height: 40px;
+	background-color: wheat;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-weight: bold;
+}
+
+nav strong {
+	color: orange;
+	text-shadow: 1px 1px 2px black, 0 0 1em orange, 0 0 0.2em orange;
+}
+
+nav a {
+	text-decoration: none;
+}
+
+#iniciales {
+	background-image: url("img/container_bg.png");
+	width: 100%;
+	height: auto;
+	padding: 20px;
+	padding-bottom: 40px;
+	box-sizing: border-box;
+}
+
+/* Estilos para centrar contenido (infoPokemon.php) */
+#iniciales.pokemon-info {
+	text-align: center;
+}
+
+#iniciales.pokemon-info img {
+	height: 150px;
+	width: 150px;
+}
+
+#iniciales.pokemon-info p {
+	font-size: 20px;
+}
+
+#iniciales.pokemon-info h2 {
+	font-size: 20px;
+}
+
+#iniciales.pokemon-info .peso-inline {
+	display: inline;
+	font-size: 20px;
+}
+
+#iniciales.pokemon-info .peso-valor {
+	font-size: 20px;
+}
+
+
+#iniciales.pokemon-grid {
+	display: grid;
+	grid-template-columns: repeat(10, 1fr);
+	gap: 10px 8px;
+	align-items: start;
+}
+
+#iniciales.pokemon-grid h3 {
+	grid-column: 1 / -1;
+	margin: 0 0 15px 0;
+	text-align: center;
+}
+
+#iniciales.pokemon-grid > div {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-size: 14px;
+	text-align: left;
+}
+
+#iniciales.busqueda-layout {
+	display: flex;
+	flex-direction: row;
+	gap: 20px;
+	align-items: flex-start;
+}
+
+#iniciales a {
+	text-decoration: none;
+	color: #0066cc;
+}
+
+#iniciales a:hover {
+	text-decoration: underline;
+}
+
+#iniciales strong {
+	margin-right: 2px;
+	color: #000;
+}
+
+
+
+.separador {
+	background-color: white;
+	width: 100%;
+	height: 5px;
+}
+
+footer {
+	background-image: url("img/container_bg.png");
+	clear: both;
+	text-align: center;
+	height: 80px;
+	border: solid 1px;
+	border-bottom-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	background-color: orange;
+	color: blue;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-style: italic;
+}
+
+
+.contenedor-formulario {
+	flex: 0 0 300px;
+	min-width: 300px;
+}
+
+.contenedor-resultados {
+	flex: 1;
+	min-width: 0;
+
+}
+
+.busqueda-titulo {
+	text-align: center;
+}
+
+.busqueda-descripcion {
+	text-align: center;
+	color: #666;
+}
+
+.busqueda-input {
+	padding: 5px;
+	width: 200px;
+}
+
+.busqueda-select {
+	padding: 5px;
+	width: 213px;
+}
+
+.busqueda-boton-container {
+	text-align: center;
+}
+
+.busqueda-boton {
+	padding: 10px 30px;
+	background-color: orange;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.busqueda-boton:hover {
+	background-color: darkorange;
+}
+
+.mensaje-error {
+	text-align: center;
+	color: red;
+	margin-top: 20px;
+}
+
+.mensaje-no-resultados {
+	text-align: center;
+	color: red;
+}
+
+
+.resultados-titulo {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.resultados-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	gap: 15px;
+	width: 100%;
+}
+
+.pokemon-card {
+	border: 2px solid #ccc;
+	border-radius: 10px;
+	padding: 15px;
+	text-align: center;
+	background-color: rgba(255, 255, 255, 0.8);
+}
+
+.pokemon-card img {
+	width: 100px;
+	height: 100px;
+}
+
+.pokemon-card h3 {
+	margin: 10px 0;
+}
+
+.pokemon-card p {
+	margin: 5px 0;
+}
+
+.pokemon-card a {
+	display: inline-block;
+	margin-top: 10px;
+	padding: 5px 10px;
+	background-color: orange;
+	color: white;
+	text-decoration: none;
+	border-radius: 5px;
+}
+
+.pokemon-card a:hover {
+	background-color: darkorange;
+}
